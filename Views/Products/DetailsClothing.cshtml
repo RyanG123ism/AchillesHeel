@@ -1,0 +1,72 @@
+﻿@model AchillesHeel_RG.Models.Clothing
+
+
+@if(TempData["AlertMessage"] != null)
+{
+    <br />
+    <div class="alert alert-warning">
+        <strong>@TempData["AlertMessage"]</strong>
+    </div>
+}
+
+<!-- Product section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-7"><img class="card-img-top mb-5 mb-md-0" style="border:1px solid black;" border-radius="25%" height="600" width="480" src="~/@ViewBag.Image" alt="..." /></div>
+            <div class="col-md-5">
+                <div class="small mb-1">@Html.DisplayFor(model => model.ProductCategory.CategoryType)</div>
+                <h1 class="display-5 fw-bolder">@Html.DisplayFor(model => model.ProductName)</h1>
+                <div class="fs-5 mb-5">
+                    <span>@Html.DisplayFor(model => model.ProductPrice)</span>
+                </div>
+
+                <p class="lead">@Html.DisplayFor(model => model.Description)</p>
+                @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                {
+                    <div class="fs-5 mb-5">
+                        <span>Sale Percentage: @Html.DisplayFor(model => model.SalePercentage)</span><br />
+                        <span>Stock Level: @Html.DisplayFor(model => model.StockLevel)</span><br />
+                        <span>Hidden: @Html.DisplayFor(model => model.NotActive)</span><br />
+                        <br />
+                    </div>
+                }
+                <div class="d-flex">
+                    @using (Html.BeginForm("AddToCart", "ShoppingBasket"))
+                    {
+                        if (!User.GetType().Equals("Staff"))
+                        {
+                            <div>
+                                @Html.DropDownList("Size", ViewBag.AvailableSizes as SelectList, "Available Sizes", new { @class = "form-control" })
+                            </div>
+                            <br />
+                            <label for="qty">Qty:</label>
+                            <select name="qty" id="qty" typeof="number">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                            <button type="submit">Add to Cart</button>
+                        }
+                    }
+
+                    <p>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("AssistantManager"))
+                        {
+                            @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId }) <br />
+                        }
+                        @Html.ActionLink("Back to List", "AllProducts", "Products")
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,86 @@
+﻿@using AchillesHeel_RG.Models
+@model IEnumerable<AchillesHeel_RG.Models.Product>
+
+<div class="text-center">
+    <h1>All Products</h1>
+    <h7>Report Generated on @DateTime.Now</h7>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductCategory.CategoryType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SalePercentage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StockLevel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Colour)
+        </th>
+        <th>
+            Size
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NotActive)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img height="75" width="75" src="~/@item.ImageUrl" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductCategory.CategoryType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalePercentage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StockLevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Colour)
+            </td>
+            @if (item is Shoe)
+            {
+                Shoe s = (Shoe)item;
+                <td>
+                    @s.Size
+                </td>
+
+            }
+            else
+            {
+                Clothing c = (Clothing)item;
+                <td>
+                    @c.Size
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.NotActive)
+            </td>
+        </tr>
+    }
+
+</table>

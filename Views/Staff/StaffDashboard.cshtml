@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "StaffDashboard";
+}
+
+<h2 class="text-center">Your Dashboard</h2>
+
+<div class="text-center">
+    @Html.ActionLink("View Customer Orders", "ViewAllOrders", "Admin") |
+    @Html.ActionLink("Find Customer", "ViewAllMembers", "Staff") |
+    @Html.ActionLink("Register Customer", "CreateMember", "Admin")|
+    @Html.ActionLink("Create In Store Order", "CreateManualOrder", "Orders")
+</div>

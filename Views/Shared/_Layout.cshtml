@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img class="img-circle" src="/Images/Logos/AH_Logo_Dark.png" height="50" width="50" />
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @Html.ActionLink("Achilles Heel", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    <li>@Html.ActionLink("Products", "AllProducts", "Products")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("My Basket", "BasketIndex", "ShoppingBasket")</li>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Admin Dashboard", "Index", "Admin")</li>
+                    }
+                    @if (User.IsInRole("SalesAssistant"))
+                    {
+                        <li>@Html.ActionLink("Staff Dashboard", "StaffDashboard", "Staff")</li>
+                    }
+
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            
+            <footer>
+                <br />
+                <br />
+                <div class="text-center">
+                    <img src="~/Images/Logos/AH_Logo.png" height="50" width="50" />
+                    @Html.ActionLink("Contact", "Contact", "Home") |
+                    @Html.ActionLink("About", "About", "Home")
+                </div>
+
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+</body>
+</html>

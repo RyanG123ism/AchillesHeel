@@ -1,0 +1,175 @@
+﻿@using AchillesHeel_RG.Models
+@model AchillesHeel_RG.Models.ViewModels.CreateManualOrderViewModel
+
+@{
+    ViewBag.Title = "CreateManualOrder";
+}
+
+<h2>CreateManualOrder</h2>
+
+
+
+
+@using (Html.BeginForm("CreateManualOrder_UserSelected", "Orders"))
+{
+    if (ViewBag.User == null && ViewBag.Address == null)
+    {
+        <div class="form-group">
+            <p>Order for:</p>
+            <p>Select a user that this order will be placed under:</p>
+            <div class="col-md-10">
+                @Html.DropDownList("Users", Model.Users as SelectList, "Select User", new { @class = "form-control" })
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Submit" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+}
+
+
+@using (Html.BeginForm("CreateManualOrder_AddressSelected", "Orders"))
+{
+    if (ViewBag.User == null && ViewBag.Address == null)
+    {
+        if (Model.User != null)
+        {
+            <div class="form-group">
+                <p>Address:</p>
+                <p>Select which delivery address you would like the order to be delivered to:</p>
+                <div class="col-md-10">
+                    @Html.DropDownList("Addresses", Model.Addresses as SelectList, "Select a Delivery Address", new { @class = "form-control" })
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Submit" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}
+@using (Html.BeginForm("CreateManualOrder_AddProduct", "Orders"))
+{
+    if (Model.Products != null)
+    {
+        <p>Deliver Recipient: @ViewBag.User.DisplayName</p>
+        <br />
+        <p>Delivery Address:</p>
+        <p>@ViewBag.Address.Line1</p>
+        <p>@ViewBag.Address.Line2</p>
+        <p>@ViewBag.Address.City</p>
+        <p>@ViewBag.Address.PostCode</p>
+
+        if (Model.Address != null && Model.User != null)
+        {
+            <div class="form-group">
+                <p>Products:</p>
+                <p>Select a product to add to the order</p>
+                <div class="col-md-10">
+                    @Html.DropDownList("Products", Model.Products as SelectList, "Select a Product to add", new { @class = "form-control" })
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Add" class="btn btn-default" />
+                            @{TempData["User"] = ViewBag.User; }
+                            @{TempData["Address"] = ViewBag.Address; }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>CreateManualOrderViewModel</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @if (Model.Order != null)
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    <p>Product</p>
+                </th>
+                <th>
+                    Size
+                </th>
+                <th>
+                    <p>Quantity</p>
+                </th>
+                <th>
+                   <p>Line Total</p>
+                </th>
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Order.OrderLines)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.ProductName)
+                    </td>
+                    <td>
+                        @if (item.Product is Shoe)
+                        {
+                            Shoe s = (Shoe)item.Product;
+                            <p> @s.Size </p>
+                        }
+                        else
+                        {
+                            Clothing c = (Clothing)item.Product;
+                            <p> @c.Size</p>
+                        }
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LineTotal)
+                    </td>
+                    <td>
+                        @Html.ActionLink("(-)", "CreateManualOrder_RemoveSingle", new { id = item.ProductId }) |
+                        @Html.ActionLink("(+)", "CreateManualOrder_AddSingle", new { id = item.ProductId }) |
+                        @Html.ActionLink("Remove", "CreateManualOrder_RemoveProduct", new { id = item.ProductId })
+                    </td>
+                </tr>
+
+            }
+            <tfoot>
+                @Html.DisplayNameFor(model => model.Order.OrderTotal): £@Html.DisplayFor(model => model.Order.OrderTotal)
+            </tfoot>
+        </table>
+
+        {TempData["Order"] = Model.Order; }
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create Order" class="btn btn-default" />
+            </div>
+        </div>
+    }
+
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "ADMIN DASHBOARD";
+}
+
+<h2 class="text-center">Your Dashboard</h2>
+
+<div class="text-center">
+    @Html.ActionLink("Users", "ViewAllUsers") |
+    @Html.ActionLink("Products", "ViewAllProducts") |
+    @Html.ActionLink("Orders", "ViewAllOrders") | 
+    @Html.ActionLink("User Cases", "Index", "ContactForms")
+</div>

@@ -1,0 +1,15 @@
+﻿@model AchillesHeel_RG.Models.Staff
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Welcome to Your Account Dashboard @Model.FirstName</h2>
+
+@Html.ActionLink("View Account", "Details", new { id = Model.Id }) |
+@Html.ActionLink("Edit Account", "Edit", new { id = Model.Id }) |
+@Html.ActionLink("Manage Addresses", "ViewAddresses", new { id = Model.Id }) |
+@Html.ActionLink("Your Past Orders", "ViewAllOrders", new { id = Model.Id })
+
+
+

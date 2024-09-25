@@ -1,0 +1,115 @@
+﻿@model AchillesHeel_RG.Models.Order
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.DisplayName)
+        </dt>
+
+        <dd>
+            @ViewBag.User.DisplayName
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderStatus) 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderStatus) | @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("AssistantManager")) { @Html.ActionLink("Update Status", "UpdateOrderStatus", new { id = Model.OrderId })} 
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPaid)
+            @if (Model.IsPaid == true)
+            {
+                @Html.ActionLink("Refund Payment", "RefundPayment", new { id = Model.OrderId })
+            }
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsPaid)
+        </dd>
+
+
+
+
+        <table class="table">
+            <tr>
+                <th>
+                    <p>OrderLineID</p>
+                </th>
+                <th>
+                    <p>Product Name</p>
+                </th>
+                <th>
+                    <p>QTY</p>
+                </th>
+                <th>
+                    <p>Line Total</p>
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in ViewBag.OrderLines)
+            {
+                <tr>
+                    <td>
+                        <p>@item.OrderLineId</p>
+                    </td>
+                    <td>
+                        <p>@item.Product.ProductName</p>
+                    </td>
+                    <td>
+                        <p>@item.Quantity</p>
+                    </td>
+                    <td>
+                        <p>@item.LineTotal</p>
+                    </td>                    
+                </tr>
+            }
+            <tr>
+                <h1>Order Total: @Html.DisplayFor(model => model.OrderTotal)</h1>
+            </tr>
+        </table>
+          
+    </dl>
+</div>
+<p>
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Delete Order", "Delete", new { id = Model.OrderId }) 
+    }
+</p>
+

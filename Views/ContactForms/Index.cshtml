@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@model IEnumerable<AchillesHeel_RG.Models.ContactForm>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Full Case History</h2>
+
+<p>
+    @Html.ActionLink("View Open Cases", "IndexOpenCases") | @Html.ActionLink("View Closed Cases", "IndexClosedCases")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Message)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubmitDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubmitDate)
+            </td>
+            <td>
+                @if (item.OpenCase)
+                {
+                    @Html.ActionLink("Close Case", "CloseCase", new { id = item.ContactFormId }) 
+                }
+                else
+                {
+                    @Html.ActionLink("Open Case", "OpenCase", new { id = item.ContactFormId }) 
+                }
+                | @Html.ActionLink("Details", "Details", new { id = item.ContactFormId })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNet.Identity
+@using AchillesHeel_RG.Models
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            @if (User.IsInRole("Admin") || User.IsInRole("Manager")|| User.IsInRole("SalesAssistant") || User.IsInRole("InvoiceClerk") || User.IsInRole("AssistantManager")
+                    || User.IsInRole("StockControlManager") || User.IsInRole("WharehouseAssistant") || User.IsInRole("SocialMediaManager"))
+            {
+                @Html.ActionLink("My Account", "Index", "Staff", routeValues: new { id = User.Identity.GetUserId() }, htmlAttributes: null)
+            }
+            else
+            {
+                @Html.ActionLink("My Account", "Index", "Members", routeValues: new { id = User.Identity.GetUserId() }, htmlAttributes: null)
+            }
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

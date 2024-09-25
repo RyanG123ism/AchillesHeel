@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@if (TempData["AlertMessage"] != null)
+{
+    <br />
+    <div class="alert alert-warning">
+        <strong>@TempData["AlertMessage"]</strong>
+    </div>
+}
+
+
+
+<h1 class="text-center text-capitalize">Achilles Heel</h1>
+<br />
+<br />
+<div class="row">
+    <div class="col-md-5">
+        <div class="card">
+            <h2>Everything is easier after a few miles.</h2>
+            <div class="card-body">
+                <p>
+                    <h4>At Achilles Heel, we’re all about the run. If your aim is 5K or 26.2 miles, on road or on trail, we’re here to prepare, empower and equip you from your first training run through to race-day. Our curated and tested range of running kit covering road, trail, track & field, clothing and accessories will get you set, with zero compromise on performance or style. We’ll help you find the right fit: drop into our running store in Glasgow, or get in touch with our running experts and we’ll get you ready to get on your marks.</h4>
+                </p>
+            </div>
+            <div class="card-footer">
+                <p><h5>We’ll help you find the right fit: drop into our running store in Glasgow, or get in touch with our running experts and we’ll get you ready to get on your marks.</h5></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <img class="card-img-top center-block" style="border:1px solid black;" height="600" width="700" src="~/Images/Other/HomePageStef.png" alt="..." />
+    </div>
+</div>
+
+<br />
+
+
+
+<h2 class="text-center">Top Sellers</h2>
+<div class="col-md-3">
+    <div class="card h-100">
+        <!-- Product image-->
+        <img class="card-img-top center-block" height="200" width="200" src="~/@ViewBag.p1.ImageUrl" alt="..." />
+        <!-- Product details-->
+        <div class="card-body p-4">
+            <div class="text-center">
+                <!-- Product name-->
+                <h5 class="fw-bolder">@ViewBag.p1.ProductName</h5>
+                <!-- Product price-->
+                £@ViewBag.p1.ProductPrice
+            </div>
+        </div>
+        <!-- Product actions-->
+        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">@Html.ActionLink("View Product", "Details", "Products", new { id = ViewBag.p1.ProductId }, htmlAttributes: null)</a></div>
+        </div>
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="card h-100">
+        <!-- Product image-->
+        <img class="card-img-top center-block" height="200" width="200" src="~/@ViewBag.p2.ImageUrl" alt="..." />
+        <!-- Product details-->
+        <div class="card-body p-4">
+            <div class="text-center">
+                <!-- Product name-->
+                <h5 class="fw-bolder">@ViewBag.p2.ProductName</h5>
+                <!-- Product price-->
+                £@ViewBag.p2.ProductPrice
+            </div>
+        </div>
+        <!-- Product actions-->
+        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">@Html.ActionLink("View Product", "Details", "Products", new { id = ViewBag.p2.ProductId }, htmlAttributes: null)</a></div>
+        </div>
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="card h-100">
+        <!-- Product image-->
+        <img class="card-img-top center-block" height="200" width="200" src="~/@ViewBag.p3.ImageUrl" alt="..." />
+        <!-- Product details-->
+        <div class="card-body p-4">
+            <div class="text-center">
+                <!-- Product name-->
+                <h5 class="fw-bolder">@ViewBag.p3.ProductName</h5>
+                <!-- Product price-->
+                £@ViewBag.p3.ProductPrice
+            </div>
+        </div>
+        <!-- Product actions-->
+        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">@Html.ActionLink("View Product", "Details", "Products", new { id = ViewBag.p3.ProductId }, htmlAttributes: null)</a></div>
+        </div>
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="card h-100">
+        <!-- Product image-->
+        <img class="card-img-top center-block" height="200" width="200" src="~/@ViewBag.p4.ImageUrl" alt="..." />
+        <!-- Product details-->
+        <div class="card-body p-4">
+            <div class="text-center">
+                <!-- Product name-->
+                <h5 class="fw-bolder">@ViewBag.p4.ProductName</h5>
+                <!-- Product price-->
+                £@ViewBag.p4.ProductPrice
+            </div>
+        </div>
+        <!-- Product actions-->
+        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">@Html.ActionLink("View Product", "Details", "Products", new { id = ViewBag.p4.ProductId }, htmlAttributes: null)</a></div>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<br />

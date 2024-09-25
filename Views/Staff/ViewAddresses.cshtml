@@ -1,0 +1,59 @@
+﻿@model AchillesHeel_RG.Models.Staff
+
+@{
+    ViewBag.Title = "ViewAddresses";
+}
+
+<h2>Manage Addresses </h2>
+
+@Html.ActionLink("Create New Address", "AddAddress", new { id = Model.Id })
+
+@if (ViewBag.Addresses == null || ViewBag.Addresses.Count == 0)
+{
+    <div class="card-body">
+        <h5 class="card-title">
+            You currently have no addresses registered with us Create a new address @Html.ActionLink("here", "AddAddress", new { id = Model.Id })
+        </h5>
+    </div>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                Address Line 1
+            </th>
+            <th>
+                Address Line 2
+            </th>
+            <th>
+                City
+            </th>
+            <th>
+                Post Code
+            </th>
+        </tr>
+        @foreach (var item in ViewBag.Addresses)
+        {
+            <tr>
+                <td>
+                    @item.Line1
+                </td>
+                <td>
+                    @item.Line2
+                </td>
+                <td>
+                    @item.City
+                </td>
+                <td>
+                    @item.PostCode
+                </td>
+                <td>
+                    @Html.ActionLink("Remove", "RemoveAddress", new { id = item.AddressId }) |
+                    @Html.ActionLink("Edit", "EditAddress", new { id = item.AddressId }) |
+                </td>
+            </tr>
+        }
+    </table>
+}
+

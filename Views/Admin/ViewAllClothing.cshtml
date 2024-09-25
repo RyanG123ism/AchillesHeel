@@ -1,0 +1,81 @@
+﻿@model IEnumerable<AchillesHeel_RG.Models.Clothing>
+
+@{
+    ViewBag.Title = "ViewAllClothing";
+}
+
+<h2>ViewAllClothing</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductCategory.CategoryType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SalePercentage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StockLevel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Colour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PitToPit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Height)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductCategory.CategoryType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalePercentage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StockLevel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Colour)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PitToPit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Height)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProductId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProductId })
+        </td>
+    </tr>
+}
+
+</table>

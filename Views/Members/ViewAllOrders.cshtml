@@ -1,0 +1,67 @@
+﻿@model IEnumerable<AchillesHeel_RG.Models.Order>
+
+@{
+    ViewBag.Title = "ViewAllOrders";
+}
+
+<h2>ViewAllOrders</h2>
+
+@if (Model.Count() == 0)
+{
+    <p>You have no previous orders </p>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderStatus)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Payment.PaymentStatus)
+                </th>*@
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderTotal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderStatus)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Payment.PaymentStatus)
+                    </td>*@
+                <td>
+                    <a href="@Url.Action("Details", "Orders",new { id = item.OrderId})">Details</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+}

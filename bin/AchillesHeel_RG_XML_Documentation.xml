@@ -1,0 +1,1498 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AchillesHeel_RG</name>
+    </assembly>
+    <members>
+        <member name="M:AchillesHeel_RG.Controllers.AdminController.Index">
+            <summary>
+            the index page for the admin dashboard - this is the first page the admin will be presented with when accessing the dashboard
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.AdminController.ViewAllUsers">
+            <summary>
+            returns a new page with a list of all ACTIVE user accounts in the databse
+            </summary>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:AchillesHeel_RG.Controllers.AdminController.SearchForUser(System.String)" -->
+        <member name="M:AchillesHeel_RG.Controllers.AdminController.ViewAllUsersByRole(System.String)">
+            <summary>
+            DOESNT WORK Returns the "ViewAllUsers" view with all users relating to one role.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.AdminController.CreateMember">
+            <summary>
+            returns an instance of the Create Member View Model ands sends it to the view
+            </summary>
+            <returns>View, CreateMemberViewModel</returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.AdminController.CreateMember(AchillesHeel_RG.Models.ViewModels.CreateMemberViewModel)">
+            <summary>
+            Post Method for member creation - this will assign all the user properties to a new instance of member object, assign a role, and save into the context
+            </summary>
+            <param name="model"></param>
+            <returns>View, CreateMemberViewModel</returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.AdminController.CreateStaff">
+            <summary>
+            returns an instance of the create staff view model and sends it to the view
+            </summary>
+            <returns>View, CreateStaffViewModel</returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.AdminController.CreateStaff(AchillesHeel_RG.Models.ViewModels.CreateStaffViewModel)">
+            <summary>
+            Post method for staff creation - assings the users properties to a new instance of a STaff User, assings a role and saves to the database.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.AdminController.EditStaff(System.String)">
+            <summary>
+            GET method - populates the view model with the choses staff details, to be edited later.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.AdminController.EditStaff(AchillesHeel_RG.Models.ViewModels.EditStaffViewModel)">
+            <summary>
+            POST method - takes the users input and applies it to the viewmodel, then updates the choses staff members details.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.AdminController.EditMember(System.String)">
+            <summary>
+            GET method for Edit member - returns the EditMember View and populates thge fields with the members existing details
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.AdminController.EditMember(System.String,AchillesHeel_RG.Models.ViewModels.EditMemberViewModel)">
+            <summary>
+            post method for Editing Members - assinging new properties to the member and updating to the context 
+            </summary>
+            <param name="id"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.AdminController.DeactivateUser(System.String)">
+            <summary>
+            updates the users status to deactivated
+            for Data protection and record keeping reasons we cannot delete members details straight away
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.AdminController.ViewAllProducts">
+            <summary>
+            returns a new view with a list of all products listed on the context
+            </summary>
+            <returns>View</returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.AdminController.ProductsPDF">
+            <summary>
+            returns a list of all products that generate a PDF report of all stock on the system
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.AdminController.ViewAllProductsByCategory(System.Nullable{System.Int32})">
+            <summary>
+            Returns the "ViewAllProducts" view with all products relating to one category.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AchillesHeel_RG.Controllers.CheckoutController">
+            <summary>
+            this method handles the STRIPE payment API
+            index action will deal directly with the invoice generation and payment gateway
+            success/cancelled actions are called based on the outcome of the payment.
+            </summary>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.CheckoutController.Index">
+            <summary>
+            This method will get the current Basket Order from the session and parse that object into an order format that stipe can proccess.
+            each orderline is added into a list of 'lineItems' 
+            an invoice is also formatted so that it can be sent to the user once they payment is made - THIS DOESNT WORK IN TEST ENVIRONMENT. THE PROJECT MUST GO LIVE FOR THIS TO WORK
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.CheckoutController.Success">
+            <summary>
+            takes the order Post successful payment and updates the status to PIAD
+            clears the shopping basket session, and returns an order success view
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.CheckoutController.Cancelled">
+            <summary>
+            takes the order post payment and updates accordingly - this method will only run if the payment is unsuccessful
+            the basket session will remain untouched so the user can rety the payment if they chose
+            the order status is changed to cancelled. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ContactFormsController.Index">
+            <summary>
+            index page - returns a view that displays all contact forms
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ContactFormsController.IndexOpenCases">
+            <summary>
+            returns a list of all open cases
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ContactFormsController.IndexClosedCases">
+            <summary>
+            returns a list of all closed cases
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ContactFormsController.Details(System.Nullable{System.Int32})">
+            <summary>
+            returns the details of a specific contact form in a new view
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ContactFormsController.CloseCase(System.Nullable{System.Int32})">
+            <summary>
+            this action will trigger once an open case has been responded to (via email - not through the application) - and the case is now closed
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ContactFormsController.OpenCase(System.Nullable{System.Int32})">
+            <summary>
+            this action will trigger once a closed case gets reopened
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.HomeController.Index">
+            <summary>
+            returns the home page view
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.HomeController.About">
+            <summary>
+            returns the about page view
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.HomeController.Contact">
+            <summary>
+            Returns the ContactForm ViewModel for users to send a message to the company
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.HomeController.Contact(AchillesHeel_RG.Models.ViewModels.ContactFormViewModel)">
+            <summary>
+            creates a new contact form via the details input in the view model
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.MembersController.Index(System.String)">
+            <summary>
+            returns the members index page
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.MembersController.Details(System.String)">
+            <summary>
+            returns the members account details
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.MembersController.Edit(System.String)">
+            <summary>
+            GET method - returns the edit member4 view model
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.MembersController.Edit(AchillesHeel_RG.Models.ViewModels.EditAccountMemberViewModel)">
+            <summary>
+            POST Method - takes the details enetered in the view model and applies them to an existing member account
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.MembersController.AddAddress(System.String)">
+            <summary>
+            returns the Add address view model for a member
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.MembersController.AddAddress(AchillesHeel_RG.Models.ViewModels.AddAddressViewModel)">
+            <summary>
+            POST method - takes the view model and uses the data input to create a new address for a user
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.MembersController.RemoveAddress(System.Int32)">
+            <summary>
+            deletes a users selected address from the DB
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.MembersController.EditAddress(System.Int32)">
+            <summary>
+            GET method - returns the edit address view model empty
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.MembersController.EditAddress(AchillesHeel_RG.Models.ViewModels.EditAddressViewModel)">
+            <summary>
+            POST method - applies the data from the edit address view model to an exisiting member address
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.MembersController.ViewAllOrders(System.String)">
+            <summary>
+            returns a view with a list of all ONE users orders
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.OrdersController.Create">
+            <summary>
+            For testing purposes
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.OrdersController.Details(System.Nullable{System.Int32})">
+            <summary>
+            loads a new page that displays existing information of a given order.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.OrdersController.CreateManualOrder">
+            <summary>
+            GET method for an Admin/Manager/AssistantManager creating a manual order for a user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.OrdersController.CreateManualOrder(AchillesHeel_RG.Models.ViewModels.CreateManualOrderViewModel)">
+            <summary>
+            POST method - takes the details from the view model and uses it to create a new order for a user that is already 'paid' for
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.OrdersController.CreateManualOrder_UserSelected(AchillesHeel_RG.Models.ViewModels.CreateManualOrderViewModel,System.Nullable{System.Int32})">
+            <summary>
+            gets the user from the DDL in the CreateManualOrder view and passes it back to the CreateManualOrder action
+            </summary>
+            <param name="model"></param>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.OrdersController.CreateManualOrder_AddressSelected(AchillesHeel_RG.Models.ViewModels.CreateManualOrderViewModel)">
+            <summary>
+            gets the address selected in the DDL in the createManualOrder view and passes that back to the CreateManualOrder action
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.OrdersController.CreateManualOrder_AddProduct(AchillesHeel_RG.Models.ViewModels.CreateManualOrderViewModel)">
+            <summary>
+            gets the product selected in the DDL in the CreateManualOrder view and passes it back to the createManualOrder action as a new order
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.OrdersController.CreateManualOrder_AddSingle(System.Int32)">
+            <summary>
+            Adds 1 qty to the manual order
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.OrdersController.CreateManualOrder_RemoveSingle(System.Int32)">
+            <summary>
+            removes 1 qty from the manual order 
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.OrdersController.CreateManualOrder_RemoveProduct(System.Int32)">
+            <summary>
+            removes a product from a manual order
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.OrdersController.UpdateOrderStatus(System.Nullable{System.Int32})">
+            <summary>
+            loads a view of the existing order status of an order, and allows the user to edit this
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.OrdersController.UpdateOrderStatus(System.Int32,AchillesHeel_RG.Models.OrderStatus)">
+            <summary>
+            Takes the value from the selectListItem of Order status' and updates the Order
+            </summary>
+            <param name="id"></param>
+            <param name="orderStatus"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.OrdersController.SearchForOrder(System.String)">
+            <summary>
+            searches for an order in the context by ID
+            </summary>
+            <param name="searchTerm"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.OrdersController.CancelOrder(System.Int32)">
+            <summary>
+            changes the order status to cancelled
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ProductsController.Details(System.Int32)">
+            <summary>
+            returns the approrpiate view that will display the product details
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ProductsController.CreateShoe">
+            <summary>
+            returns the view model empty for a shoe to be added to the context
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ProductsController.CreateShoe(AchillesHeel_RG.Models.ViewModels.CreateShoeViewModel,System.Web.HttpPostedFileBase)">
+            <summary>
+            post method - applies the view model data to a new instance of the shoe object
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ProductsController.CreateClothing">
+            <summary>
+            get method - returns the view model for creating clothing
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ProductsController.CreateClothing(AchillesHeel_RG.Models.ViewModels.CreateClothingViewModel,System.Web.HttpPostedFileBase)">
+            <summary>
+            post method - takes the model data and applies it to a new instance of clothing object
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ProductsController.EditClothing(System.Int32)">
+            <summary>
+            gets the sleected product and populates the view model with data
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ProductsController.EditClothing(AchillesHeel_RG.Models.ViewModels.EditClothingViewModel)">
+            <summary>
+            Applies the model values to the product and updates the context
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ProductsController.EditShoe(System.Int32)">
+            <summary>
+            gets the selected product and populates the view model with its data
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ProductsController.EditShoe(AchillesHeel_RG.Models.ViewModels.EditShoeViewModel)">
+            <summary>
+            Applies the model values to the product and updates the context
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ProductsController.RemoveProduct(System.Int32)">
+            <summary>
+            Changes the NotActive variable to false - so that the product is no longer listed on the website to customers
+            you can NEVER fully remove a product - need a record of everything for order history
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AchillesHeel_RG.Controllers.ShoppingBasketController">
+            <summary>
+            Holds all the relevant functions for inteacting with the shopping basket
+            Only Accessible for authorized users - logged in users.
+            </summary>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ShoppingBasketController.BasketIndex">
+            <summary>
+            index page for the basket - returns the live Sesison of a users basket
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ShoppingBasketController.GoToCheckOut">
+            <summary>
+            this aciton is called when the 'checkout' button is pressed
+            the shopping basket session will saved to the database as a new order with the status of - awaiting payment
+            once the payment goes through the status will be changed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ShoppingBasketController.AddToCart(System.Int32)">
+            <summary>
+            Adds a product to the users basket session
+            </summary>
+            <param name="qty"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ShoppingBasketController.AddQty(System.Int32)">
+            <summary>
+            Adds 1 to the Quantity of a product in the users basket
+            </summary>
+            <param name="qty"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ShoppingBasketController.RemoveQty(System.Int32)">
+            <summary>
+            Removes 1 from the quantity of a product in the users basket
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ShoppingBasketController.RemoveProduct(System.Int32)">
+            <summary>
+            removes a product from the users shopping basket
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ShoppingBasketController.getAddress(System.String)">
+            <summary>
+            rerturns the users ssleetced address
+            </summary>
+            <param name="value_ddl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ShoppingBasketController.SelectDeliveryAddress(AchillesHeel_RG.Models.Address)">
+            <summary>
+            returns the slected dlivery address view model empty
+            </summary>
+            <param name="address"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ShoppingBasketController.SelectDeliveryAddress(AchillesHeel_RG.Models.ViewModels.SelectDeliveryAddressViewModel)">
+            <summary>
+            applies the data from the view model an address and searches for a match in the DB, and applies that to the shopping basket
+            if no address is found then it creates a new address in the DB
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.ShoppingBasketController.CreateOrder">
+            <summary>
+            takes the users current shopping basket session and creates a new instance of an order that is saved to the DB with the stataus of 'awaiting payment'
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.StaffController.StaffDashboard">
+            <summary>
+            returns the staff index page (Dashboard)
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.StaffController.ViewAllMembers">
+            <summary>
+            returns a a list of all members - no staff members
+            </summary>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:AchillesHeel_RG.Controllers.StaffController.SearchForUser(System.String)" -->
+        <member name="M:AchillesHeel_RG.Controllers.StaffController.Edit(System.String)">
+            <summary>
+            returns the edit account staff view model
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.StaffController.Edit(AchillesHeel_RG.Models.ViewModels.EditAccountStaffViewModel)">
+            <summary>
+            takes thre data from the view model and applies it to the staff memner
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.StaffController.ViewAddresses(System.String)">
+            <summary>
+            returns a list of address that apply to a single user
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.StaffController.AddAddress(System.String)">
+            <summary>
+            returns the add address view model
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.StaffController.AddAddress(AchillesHeel_RG.Models.ViewModels.AddAddressViewModel)">
+            <summary>
+            Applies the view model data to create a new address
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.StaffController.RemoveAddress(System.Int32)">
+            <summary>
+            deletes a users selected address from the DB
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.StaffController.EditAddress(System.Int32)">
+            <summary>
+            returns the edit address view model
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.StaffController.EditAddress(AchillesHeel_RG.Models.ViewModels.EditAddressViewModel)">
+            <summary>
+            applies the view model data to an existing address
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AchillesHeel_RG.Controllers.StaffController.ViewAllOrders(System.String)">
+            <summary>
+            returns a list of all order made by one user
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.AchillesHeelDbContext">
+            <summary>
+            context context for the application - this will information neccesary to contruct the tables in the database
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.AchillesHeelDbContext.ContactForms">
+            <summary>
+            ContactForms Table inside AchillesHeelDbContext
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.AchillesHeelDbContext.Products">
+            <summary>
+            Products Table inside AchillesHeelDbContext
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.AchillesHeelDbContext.ProductCategories">
+            <summary>
+            Product Categories Table inside AchillesHeelDbContext
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.AchillesHeelDbContext.Orders">
+            <summary>
+            Orders Table inside AchillesHeelDbContext
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.AchillesHeelDbContext.OrderLines">
+            <summary>
+            Orderlines Table inside AchillesHeelDbContext
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.AchillesHeelDbContext.Payments">
+            <summary>
+            Payments Table inside AchillesHeelDbContext
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.AchillesHeelDbContext.Posts">
+            <summary>
+            Posts Table inside AchillesHeelDbContext
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.AchillesHeelDbContext.Comment">
+            <summary>
+            COmments Table inside AchillesHeelDbContext
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.AchillesHeelDbContext.PostCategories">
+            <summary>
+            Post Categories Table inside AchillesHeelDbContext
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.AchillesHeelDbContext.Addresses">
+            <summary>
+            Addresses Table inside achillesHeelDbContext 
+            </summary>
+        </member>
+        <member name="M:AchillesHeel_RG.Models.AchillesHeelDbContext.#ctor">
+            <summary>
+            constructor for AchillesHeelDbContext
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.Address">
+            <summary>
+            holds the neccesary attributes for storing an address
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Address.AddressId">
+            <summary>
+            unique identifier for an address
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Address.Line1">
+            <summary>
+            first line of the address
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Address.Line2">
+            <summary>
+            second line of the address
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Address.City">
+            <summary>
+            The city where the address is in
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Address.PostCode">
+            <summary>
+            the post code associated with the address
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Address.UserId">
+            <summary>
+            userId that is attatched to the address
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Address.User">
+            <summary>
+            user object attatched to the address
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.Clothing">
+            <summary>
+            holds the atributes needed for storing a clothing product 
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Clothing.Size">
+            <summary>
+            Size of the product 
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Clothing.PitToPit">
+            <summary>
+            horizontal dimensions of the product
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Clothing.Height">
+            <summary>
+            vertical dimensions of the product
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.ViewModels.AddAddressViewModel">
+            <summary>
+            View Model for creating a a new address on a user account
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.ViewModels.EditAccountMemberViewModel">
+            <summary>
+            view model for creating a new member account
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditAccountMemberViewModel.Id">
+            <summary>
+            users unique id
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditAccountMemberViewModel.DisplayName">
+            <summary>
+            display name for a user
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditAccountMemberViewModel.FirstName">
+            <summary>
+            first name of a user
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditAccountMemberViewModel.LastName">
+            <summary>
+            last name of a user
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditAccountMemberViewModel.Email">
+            <summary>
+            email address of a user
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.ViewModels.CreateClothingViewModel">
+            <summary>
+            View model for creating a new clothing item on the application
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateClothingViewModel.ProductName">
+            <summary>
+            name of the product
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateClothingViewModel.ProductPrice">
+            <summary>
+            price of the product 
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateClothingViewModel.SalePercentage">
+            <summary>
+            the amount the product is discounted by - in percent
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateClothingViewModel.StockLevel">
+            <summary>
+            the current amount of the stock held
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateClothingViewModel.Description">
+            <summary>
+            product description
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateClothingViewModel.Colour">
+            <summary>
+            colour of the product 
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateClothingViewModel.Size">
+            <summary>
+            Size of the product 
+            </summary>
+            <summary>
+            the target gender of the product
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateClothingViewModel.PitToPit">
+            <summary>
+            horizontal dimensions of the product
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateClothingViewModel.Height">
+            <summary>
+            vertical dimensions of the product
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.ViewModels.CreateManualOrderViewModel">
+            <summary>
+            place holder variables for all the data required to create a manual order by an admin
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateManualOrderViewModel.User">
+            <summary>
+            holds the user that the order is under
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateManualOrderViewModel.Address">
+            <summary>
+            holds the address of the user
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateManualOrderViewModel.Order">
+            <summary>
+            holds the current order being placed for the user
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateManualOrderViewModel.Product">
+            <summary>
+            holds the current product being added to the order 
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateManualOrderViewModel.Users">
+            <summary>
+            holds a list of all user for the admin to select from
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateManualOrderViewModel.Addresses">
+            <summary>
+            holds a list of addresses that the user has
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateManualOrderViewModel.Products">
+            <summary>
+            holds a list of all products to select from
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.ViewModels.CreateMemberViewModel">
+            <summary>
+            The View Model that will hold the attributes relevant for creating a member account manually
+            this can only be access by the admin or the manager
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateMemberViewModel.Email">
+            <summary>
+            email address of the new account
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateMemberViewModel.Password">
+            <summary>
+            password of the new account
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateMemberViewModel.FirstName">
+            <summary>
+            first name of the new account
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateMemberViewModel.LastName">
+            <summary>
+            last name of the new account
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateMemberViewModel.IsSuspended">
+            <summary>
+            suspsneded status of the new account
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.ViewModels.CreateShoeViewModel">
+            <summary>
+            view model for an admin or manager to add a shoe to the context
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateShoeViewModel.ProductPrice">
+            <summary>
+            price of the product 
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateShoeViewModel.SalePercentage">
+            <summary>
+            the amount the product is discounted by - in percent
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateShoeViewModel.StockLevel">
+            <summary>
+            the current amount of the stock held
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateShoeViewModel.Description">
+            <summary>
+            product description
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateShoeViewModel.Colour">
+            <summary>
+            colour of the product 
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.ViewModels.CreateStaffViewModel">
+            <summary>
+            viewmodel for creating a new staff member
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateStaffViewModel.FirstName">
+            <summary>
+            First name of the staff member
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateStaffViewModel.LastName">
+            <summary>
+            last name of the staff member
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateStaffViewModel.Email">
+            <summary>
+            email address for staff member
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateStaffViewModel.Salary">
+            <summary>
+            Salary of the new staff account
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.CreateStaffViewModel.Password">
+            <summary>
+            password for the new account
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.ViewModels.EditAccountStaffViewModel">
+            <summary>
+            view model for a staff member to edit their own account
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditAccountStaffViewModel.Id">
+            <summary>
+            unique id
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditAccountStaffViewModel.DisplayName">
+            <summary>
+            dislplay name of the staff account
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.ViewModels.EditAddressViewModel">
+            <summary>
+            view model for a user to edit their own address
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.ViewModels.EditClothingViewModel">
+            <summary>
+            viewmodel for edititng an item of clothing
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditClothingViewModel.Id">
+            <summary>
+            unique id of the product 
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditClothingViewModel.ProductName">
+            <summary>
+            name of the product 
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditClothingViewModel.ProductPrice">
+            <summary>
+            price of the product 
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditClothingViewModel.SalePercentage">
+            <summary>
+            the amount the product is discounted by - in percent
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditClothingViewModel.StockLevel">
+            <summary>
+            the current amount of the stock held
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditClothingViewModel.Description">
+            <summary>
+            product description
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditClothingViewModel.Colour">
+            <summary>
+            colour of the product 
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditClothingViewModel.Size">
+            <summary>
+            Size of the product 
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditClothingViewModel.PitToPit">
+            <summary>
+            horizontal dimensions of the product
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditClothingViewModel.Height">
+            <summary>
+            vertical dimensions of the product
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditClothingViewModel.IsActive">
+            <summary>
+            isActive status for the clothing item
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.ViewModels.EditMemberViewModel">
+            <summary>
+            view model for an admin or manager to edit a member
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditMemberViewModel.Email">
+            <summary>
+            email address of a member
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditMemberViewModel.Joined">
+            <summary>
+            the date the member joined
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditMemberViewModel.FirstName">
+            <summary>
+            first name of the member
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditMemberViewModel.LastName">
+            <summary>
+            last name of the member
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditMemberViewModel.DisplayName">
+            <summary>
+            display name of the member
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditMemberViewModel.IsSuspended">
+            <summary>
+            the suspended status of the member
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.ViewModels.EditShoeViewModel">
+            <summary>
+            view model for an admin or manager editing a shoe
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditShoeViewModel.Id">
+            <summary>
+            unique identitifier of the product
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditShoeViewModel.ProductPrice">
+            <summary>
+            price of the product 
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditShoeViewModel.SalePercentage">
+            <summary>
+            the amount the product is discounted by - in percent
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditShoeViewModel.StockLevel">
+            <summary>
+            the current amount of the stock held
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditShoeViewModel.Description">
+            <summary>
+            product description
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditShoeViewModel.Colour">
+            <summary>
+            colour of the product 
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditShoeViewModel.IsActive">
+            <summary>
+            is activ status of the shoe
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.ViewModels.EditStaffViewModel">
+            <summary>
+            view model for admin/manager editing a staff account 
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditStaffViewModel.Id">
+            <summary>
+            unqiue identifier of the staff account
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditStaffViewModel.Email">
+            <summary>
+            email address of the staff account
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditStaffViewModel.Joined">
+            <summary>
+            the date the account was created
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditStaffViewModel.FirstName">
+            <summary>
+            first Name of the staff account
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditStaffViewModel.LastName">
+            <summary>
+            last name of the staff member
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditStaffViewModel.DisplayName">
+            <summary>
+            display name of the staff member
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditStaffViewModel.Salary">
+            <summary>
+            salary of the staff member
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ViewModels.EditStaffViewModel.CurrentRole">
+            <summary>
+            current role of the staff member
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.Member">
+            <summary>
+            holds the needed attributes for storing a members info
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Member.IsSuspended">
+            <summary>
+            toggle for suspension of the member
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Member.Strikes">
+            <summary>
+            the number of stikes a member has against their account - 3 or more will result in suspension
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Shoe.Size">
+            <summary>
+            Size of the product - letter for clothing - numerical for shoes (use isDigit method)
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Staff.Salary">
+            <summary>
+            the salary of a staff memebr
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Staff.Posts">
+            <summary>
+            list of posts created by the staff member
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.PostCategory">
+            <summary>
+            Holds the attrbutes that define a POSTCATEGORY
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.PostCategory.CategoryId">
+            <summary>
+            unique identifier for a category
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.PostCategory.CategoryType">
+            <summary>
+            enum for the type of category
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.PostCategory.Posts">
+            <summary>
+            list of posts associated with the PostCategory
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.Comment">
+            <summary>
+            holds the attrabutes that define a COMMENT
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Comment.CommentId">
+            <summary>
+            unique identifier for a comment
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Comment.CommentDate">
+            <summary>
+            Date the comment was published
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Comment.CommentBody">
+            <summary>
+            main text for the comment
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Comment.IsRemoved">
+            <summary>
+            Boolean status for if the comment has been removed by an admin/moderator
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.User.Joined">
+            <summary>
+            The date the user account was created
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.User.DisplayName">
+            <summary>
+            Display name for user that other user will be able to see
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.User.FirstName">
+            <summary>
+            first name of the user
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.User.LastName">
+            <summary>
+            last name for the user
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.User.CurrentRole">
+            <summary>
+            using the instance of ApplicationUserManager in User class to get the users current role - to single
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.User.Comments">
+            <summary>
+            List of all comments attatched to the User - one to many
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.User.Orders">
+            <summary>
+            list of all orders placed by the user
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.User.Addresses">
+            <summary>
+            list of addresses assosiated with the user
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.Order">
+            <summary>
+            Order object - holds the relevant information regarding an order placed by the user
+            </summary>
+        </member>
+        <member name="M:AchillesHeel_RG.Models.Order.#ctor">
+            <summary>
+            constructor - creates an empty instance of ordelrines
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Order.OrderId">
+            <summary>
+            unique identifier for the Order
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Order.OrderDate">
+            <summary>
+            the date the order was placed
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Order.OrderTotal">
+            <summary>
+            the total monetary value of the order
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Order.OrderStatus">
+            <summary>
+            the current status of the order (completed/incomplete etc)
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Order.IsPaid">
+            <summary>
+            true or false - if order has been paid for
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Order.OrderLines">
+            <summary>
+            list of orderlines that belong to an order
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Order.UserId">
+            <summary>
+            User id attatched to every order
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Order.User">
+            <summary>
+            User Object that belongs to the order
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.OrderStatus">
+            <summary>
+            enum that holds all the typical order statuses 
+            </summary>
+        </member>
+        <member name="T:AchillesHeel_RG.Models.OrderLine">
+            <summary>
+            One line on an order that belongs to the Order object
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.OrderLine.OrderLineId">
+            <summary>
+            unique identifier for OrderLine
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.OrderLine.Quantity">
+            <summary>
+            the quantity of the product ordered
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.OrderLine.LineTotal">
+            <summary>
+            the total value of the order line
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.OrderLine.OrderId">
+            <summary>
+            Order id that the orderline belongs to
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.OrderLine.Order">
+            <summary>
+            Order object that the orerline belongs to
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.OrderLine.ProductId">
+            <summary>
+            Product Id relating to the orderline
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.OrderLine.Product">
+            <summary>
+            Product Object that belong to the orderline
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Payment.PaymentId">
+            <summary>
+            unique identifier for a payment
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Payment.PaymentDate">
+            <summary>
+            the date a payment was attempted
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Payment.PaymentStatus">
+            <summary>
+            the status of the payment 
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Payment.CardNumber">
+            <summary>
+            The card number associated with the paymenty
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Payment.ExpiryDate">
+            <summary>
+            expiration date of the card
+            </summary> 
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Payment.SecuirtyNumber">
+            <summary>
+            3 digit security number on the back of the card
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Payment.CardHolderName">
+            <summary>
+            name on the card
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Payment.Order">
+            <summary>
+            the order Object that the payment is for
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Post.PostId">
+            <summary>
+            unique ID of each post
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Post.PostDate">
+            <summary>
+            time stamp of when the post was created
+            </summary>       
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Post.PostTitle">
+            <summary>
+            title of the post
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Post.PostBody">
+            <summary>
+            main body of text for the post
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Post.UserId">
+            <summary>
+            user ID that is attatched to the Post - one to many
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Post.User">
+            <summary>
+            user object that is attatched to the post - one to many
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Post.CategoryId">
+            <summary>
+            category id that is attatched to the post - one to one
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Post.PostCategory">
+            <summary>
+            category object that is attatched to post - one to one
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Post.Comments">
+            <summary>
+            comments relating to that post
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Product.ProductId">
+            <summary>
+            unique identifier for a product 
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Product.ProductName">
+            <summary>
+            name of the product
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Product.ProductPrice">
+            <summary>
+            price of the product 
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Product.SalePercentage">
+            <summary>
+            the amount the product is discounted by - in percent
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Product.StockLevel">
+            <summary>
+            the current amount of the stock held
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Product.Description">
+            <summary>
+            product description
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Product.Colour">
+            <summary>
+            colour of the product 
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Product.ImageUrl">
+            <summary>
+            the path to the image of the product
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Product.ProductCategoryId">
+            <summary>
+            Id of the productcategory object associated with the product 
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.Product.ProductCategory">
+            <summary>
+            productCategory object associated with the product
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ProductCategory.CategoryId">
+            <summary>
+            unique Id for the product category
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ProductCategory.CategoryType">
+            <summary>
+            The name of the categrory
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ProductCategory.SubCategory">
+            <summary>
+            the sub category of the product
+            </summary>
+        </member>
+        <member name="P:AchillesHeel_RG.Models.ProductCategory.Products">
+            <summary>
+            List of all products associated with the category
+            </summary>
+        </member>
+    </members>
+</doc>

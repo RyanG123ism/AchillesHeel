@@ -1,0 +1,114 @@
+﻿@model AchillesHeel_RG.Models.Staff
+
+@{
+    ViewBag.Title = "DetailsStaff";
+}
+
+<h2>DetailsStaff</h2>
+
+<div>
+    <h4>Staff</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Joined)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Joined)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DisplayName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DisplayName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Salary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Salary)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditStaff", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "ViewAllUsers")
+</p>
+
+<h2>Order History</h2>
+
+@foreach (var item in ViewBag.Orders)
+{
+    <table class="table">
+        <tr>
+            <th>
+                Order ID
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Total
+            </th>
+            <th>
+                Order Status
+            </th>
+        </tr>
+
+        <tr>
+            <td>
+                @item.OrderId
+            </td>
+            <td>
+                @item.OrderDate
+            </td>
+            <td>
+                @item.OrderTotal
+            </td>
+            <td>
+                @item.OrderStatus
+            </td>
+            <td>
+                @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("AssistantManager"))
+                {
+                    <a href="@Url.Action("CancelOrder", "Orders", new { id = item.OrderId})">Cancel</a>
+                }
+                |<a href="@Url.Action("Details", "Orders",new { id = item.OrderId})">Details</a>
+
+            </td>
+        </tr>
+
+
+    </table>
+
+}

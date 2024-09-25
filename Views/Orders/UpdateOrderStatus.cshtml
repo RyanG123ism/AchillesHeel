@@ -1,0 +1,29 @@
+﻿@model AchillesHeel_RG.Models.Order
+
+@{
+    ViewBag.Title = "UpdateOrderStatus";
+}
+
+<h2>UpdateOrderStatus</h2>
+
+<p> Current Order Status:</p>
+<p> @Html.DisplayFor(model => model.OrderStatus) </p>
+
+<br />
+
+@using (Html.BeginForm("UpdateOrderStatus"))
+{
+    <p>Change Order status:</p>
+    <p>@Html.EnumDropDownListFor(model => model.OrderStatus) </p>
+
+    <button type="submit">Submit</button>
+}
+
+
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Save" class="btn btn-default" />
+    </div>
+</div>
+

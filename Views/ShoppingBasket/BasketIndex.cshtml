@@ -1,0 +1,106 @@
+﻿@using AchillesHeel_RG.Models
+@model AchillesHeel_RG.Models.Order
+
+@{
+    ViewBag.Title = "BasketIndex";
+}
+
+@if (TempData["AlertMessage"] != null)
+{
+    <br />
+    <div class="alert alert-warning">
+        <strong>@TempData["AlertMessage"]</strong>
+    </div>
+}
+
+<h2>BasketIndex</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (Model == null || Model.OrderLines.Count == 0)
+    {
+        <div class="card-body">
+            <h5 class="card-title">
+                Your basket is curently empty. Add some Products @Html.ActionLink("Here!", "AllProducts", "Products")
+            </h5>
+        </div>
+    }
+    else
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    Product Name
+                </th>
+                <th>
+                    Colour
+                </th>
+                <th>
+                    Size
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Line Total
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.OrderLines)
+            {
+                <tr>
+                    <td>
+                        @item.Product.ProductName
+                    </td>
+                    <td>
+                        @item.Product.Colour
+                    </td>
+                    <td>
+                        @if (item.Product is Shoe)
+                        {
+                            Shoe s = (Shoe)item.Product;
+                            <p> @s.Size </p>
+                        }
+                        else
+                        {
+                            Clothing c = (Clothing)item.Product;
+                            <p> @c.Size</p>
+                        }
+                    </td>
+                    <td>
+                        @item.Quantity
+                    </td>
+                    <td>
+                        @item.Product.ProductPrice
+                    </td>
+                    <td>
+                        @item.LineTotal
+                    </td>
+                    <td>
+                        @Html.ActionLink("(-)", "RemoveQty", new { id = item.ProductId }) |
+                        @Html.ActionLink("(+)", "AddQty", new { id = item.ProductId }) |
+                        @Html.ActionLink("Remove", "RemoveProduct", new { id = item.ProductId })
+                    </td>
+                </tr>
+                { TempData["Order"] = Model; }
+
+            }
+        </table>
+
+        <h2> Order Total: £@Model.OrderTotal</h2>
+
+
+
+
+
+        @Html.ActionLink("Checkout", "SelectDeliveryAddress")
+    }
+}
+
+

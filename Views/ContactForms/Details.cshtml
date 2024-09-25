@@ -1,0 +1,63 @@
+﻿@model AchillesHeel_RG.Models.ContactForm
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ContactForm</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Message)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Message)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubmitDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubmitDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OpenCase)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OpenCase)
+        </dd>
+
+        @if (Model.OpenCase)
+        {
+            @Html.ActionLink("Close Case", "CloseCase", new { id = Model.ContactFormId })
+        }
+        else
+        {
+            @Html.ActionLink("Open Case", "OpenCase", new { id = Model.ContactFormId })
+        }
+
+    </dl>
+</div>

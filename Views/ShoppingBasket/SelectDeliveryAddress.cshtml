@@ -1,0 +1,136 @@
+﻿@using AchillesHeel_RG.Models
+@model AchillesHeel_RG.Models.ViewModels.SelectDeliveryAddressViewModel
+
+@{
+    ViewBag.Title = "SelectDeliveryAddress";
+}
+
+<h2>SelectDeliveryAddress</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Product Name
+        </th>
+        <th>
+            Colour
+        </th>
+        <th>
+            Size
+        </th>
+        <th>
+            Quantity
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Line Total
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Order.OrderLines)
+    {
+        <tr>
+            <td>
+                @item.Product.ProductName
+            </td>
+            <td>
+                @item.Product.Colour
+            </td>
+            <td>
+                @if (item.Product is Shoe)
+                {
+                    Shoe s = (Shoe)item.Product;
+                    <p> @s.Size </p>
+                }
+                else
+                {
+                    Clothing c = (Clothing)item.Product;
+                    <p> @c.Size</p>
+                }
+            </td>
+            <td>
+                @item.Quantity
+            </td>
+            <td>
+                @item.Product.ProductPrice
+            </td>
+            <td>
+                @item.LineTotal
+            </td>
+        </tr>
+    }
+</table>
+
+<h2> Order Total: £@Model.Order.OrderTotal</h2>
+
+@using (Html.BeginForm("getAddress", "ShoppingBasket", new { value_ddl = "Addresses" }))
+{
+    <div class="form-group">
+        <p>Select from one of your saved addresses:</p>
+        <div class="col-md-10">
+            @Html.DropDownList("Addresses", ViewBag.Addresses as SelectList, "Select an Address", new { @class = "form-control" })
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Select" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>SelectDeliveryAddressViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Line1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Line1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Line1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Line2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Line2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Line2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PostCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PostCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
